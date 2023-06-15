@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import Tiles from "./components/Tile/Tile";
 import { Box, Drawer, Text } from "@mantine/core";
-import { createBrowserRouter } from "react-router-dom";
-import HomePage from "./pages/Home";
+// import { createBrowserRouter } from "react-router-dom";
+// import HomePage from "./pages/Home";
 import useSetMatrix from "./hooks/useSetMatrix";
 import useGameLevels from "./hooks/useGameLevels";
 
-const route = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
-]);
+// const route = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <HomePage />,
+//   },
+// ]);
 
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false);

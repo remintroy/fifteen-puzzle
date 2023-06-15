@@ -4,8 +4,8 @@ import { settingsPermissions, settingsSetPermissions } from "../lib/slice/settin
 const useSetPermissions = () => {
   const dispatch = useAppDispatch();
   const setPermissions = (permissionsObj: settingsPermissions) => {
-    Object.keys(permissionsObj).forEach((key) => {
-      const value = permissionsObj[key];
+    Object.keys(permissionsObj).forEach((key: any) => {
+      const value = (permissionsObj as unknown as Array<any>)[key];
       dispatch(settingsSetPermissions({ key, value }));
     });
   };
