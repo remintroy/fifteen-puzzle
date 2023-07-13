@@ -31,11 +31,11 @@
       background-color: rgb(48, 48, 48);
     }
 
-    div.light{
+    div.light {
       background-color: rgb(200, 200, 200);
     }
 
-    div.light.Done{
+    div.light.Done {
       background-color: rgb(224, 224, 224);
     }
 
@@ -47,6 +47,9 @@
         background-position: center; */
     }
 
+    div.invalid-move {
+      background-color: rgba(255, 142, 142, 0.369);
+    }
 
     div {
       display: flex;
@@ -58,10 +61,13 @@
       font-weight: bold;
       font-size: larger;
       user-select: none;
-      /* border: 1px solid gray; */
       /* cursor: pointer; */
       border-radius: 3px;
       overflow: hidden;
+
+      // border: 1px solid gray;
+      // backdrop-filter: blur(2px);
+      transition: all .3s;
 
       img {
         width: 100%;

@@ -1,5 +1,5 @@
-import { useAppDispatch } from "../lib/hooks";
-import { setMatrix, setMatrixAsMove } from "../lib/slice/game";
+import { useAppDispatch } from "../lib/redux/hooks";
+import { setMatrix, setMatrixAsMove } from "../lib/redux/slice/game";
 
 const useSetMatrix = () => {
   const dispatch = useAppDispatch();

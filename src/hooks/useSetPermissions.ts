@@ -1,5 +1,5 @@
-import { useAppDispatch } from "../lib/hooks";
-import { settingsPermissions, settingsSetPermissions } from "../lib/slice/settings";
+import { useAppDispatch } from "../lib/redux/hooks";
+import { settingsPermissions, settingsSetPermissions } from "../lib/redux/slice/settings";
 
 const useSetPermissions = () => {
   const dispatch = useAppDispatch();

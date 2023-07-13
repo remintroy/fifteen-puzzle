@@ -9,7 +9,7 @@ import useGameLevels from "./hooks/useGameLevels";
 // const route = createBrowserRouter([
 //   {
 //     path: "/",
-//     element: <HomePage />,
+//     element: <HomePage />, 
 //   },
 // ]);
 
@@ -24,7 +24,8 @@ function App() {
 
   return (
     <Box>
-      <Drawer size={"xs"} opened={openDrawer} onClose={() => setOpenDrawer(false)} title="Game Settings">
+      <Drawer opened={openDrawer} onClose={() => setOpenDrawer(false)} position="bottom" withCloseButton={false} title="Game Settings" />
+      <Drawer size={"xs"} opened={false} onClose={() => setOpenDrawer(false)} title="Game Settings">
         {/* Drawer content */}
       </Drawer>
       <Text fz={"xl"} onClick={() => setOpenDrawer(true)} fw={"bold"} align="center" py={10}>

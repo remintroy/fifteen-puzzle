@@ -4,7 +4,7 @@ import "./index.scss";
 import { useFullscreen, useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { Provider } from "react-redux";
-import store from "./lib/store.ts";
+import store from "./lib/redux/store.ts";
 
 const Main = () => {
   /**
@@ -33,23 +33,23 @@ const Main = () => {
   ]);
 
   return (
-    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider
-        theme={{
-          colorScheme,
-          colors: {
-            // override dark colors to change them for all components
-            // dark: ["#C1C2C5", "#A6A7AB", "#909296", "#5C5F66", "#373A40", "#2C2E33", "#25262B", "#101113", "#1A1B1E", "#141517"],
-          },
-        }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
-        <Provider store={store}>
+    <Provider store={store}>
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider
+          theme={{
+            colorScheme,
+            colors: {
+              // override dark colors to change them for all components
+              // dark: ["#C1C2C5", "#A6A7AB", "#909296", "#5C5F66", "#373A40", "#2C2E33", "#25262B", "#101113", "#1A1B1E", "#141517"],
+            },
+          }}
+          withGlobalStyles
+          withNormalizeCSS
+        >
           <App />
-        </Provider>
-      </MantineProvider>
-    </ColorSchemeProvider>
+        </MantineProvider>
+      </ColorSchemeProvider>
+    </Provider>
   );
 };
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gasoek+One&family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gasoek+One&family=Roboto+Mono:wght@300;400;500;600;700&display=swap");
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,9 +15,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  font-family: 'Roboto Mono', monospace;
-  font-family: 'Bagel Fat One', cursive;
-  font-family: 'Gasoek One', sans-serif;
+  font-family: "Roboto Mono", monospace;
+  font-family: "Bagel Fat One", cursive;
+  font-family: "Gasoek One", sans-serif;
 }
 
 html {
@@ -27,7 +27,9 @@ html {
 body {
   height: 100%;
   overscroll-behavior-y: contain;
-  // background-color: red !important;
+  // background-image: url("https://images.unsplash.com/photo-1492892132812-a00a8b245c45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80");
+  // background-image: url("/public/svg/sv_2.svg");
+  background-size: cover;
 }
 
 .AppMain {

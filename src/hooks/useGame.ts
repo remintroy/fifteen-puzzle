@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../lib/hooks";
-import { setTileImage } from "../lib/slice/game";
+import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
+import { setTileImage } from "../lib/redux/slice/game";
 
 const useGame = () => {
   const dispatch = useAppDispatch();

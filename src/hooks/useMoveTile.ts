@@ -88,7 +88,7 @@ const useMoveTileHook = (source_matrix?: number[][]) => {
   const moveTile = (x: number, y: number) => {
     setStatus("");
     // checks if given tile can move or not.
-    // If can move then current tile moves to corrent direction of empty tile
+    // If can move then current tile moves to correct direction of empty tile
     switch (true) {
       case canMoveRight(x, y): {
         onValidMove();
@@ -143,8 +143,30 @@ const useMoveTileHook = (source_matrix?: number[][]) => {
     if (downTile) moveTile(downTile.x, downTile.y);
   };
 
+  const canMoveTile = (x: number, y: number): boolean => {
+    console.log(canMoveRight(x, y), canMoveLeft(x, y), canMoveUp(x, y), canMoveDown(x, y));
+    switch (true) {
+      case canMoveRight(x, y): {
+        return true;
+      }
+      case canMoveLeft(x, y): {
+        return true;
+      }
+      case canMoveUp(x, y): {
+        return true;
+      }
+      case canMoveDown(x, y): {
+        return true;
+      }
+      default: {
+        return false;
+      }
+    }
+  };
+
   return {
     moveTile,
+    canMoveTile,
     getCoordinatesOfNullTile,
     freeMoveLeft: freeMoveDown,
     freeMoveRight: freeMoveUp,
