@@ -2,18 +2,26 @@ import "./Tile.scss";
 import useMoveTileHook from "../../hooks/useMoveTile";
 import useGame from "../../hooks/useGame";
 import { useHotkeys } from "@mantine/hooks";
-import { Box, Card, Flex, Image, Text, useMantineTheme } from "@mantine/core";
+import { Box, Button, Card, Flex, Image, Text, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useGameLevels from "../../hooks/useGameLevels";
+import { IconRotateClockwise } from "@tabler/icons-react";
+import useSetMatrix from "../../hooks/useSetMatrix";
+import { resetGame, setCompleted } from "../../lib/redux/slice/game";
+import { useAppDispatch } from "../../lib/redux/hooks";
 
 function Tiles() {
-  const { matrix, moves, tileImage, setTileImage } = useGame();
-  const { moveTile, status, freeMoveDown, freeMoveLeft, freeMoveRight, freeMoveUp } = useMoveTileHook();
+  const { matrix, moves, tileImage, setTileImage, completed } = useGame();
+  const { moveTile, status, freeMoveDown, freeMoveLeft, freeMoveRight, freeMoveUp, isCompleted } = useMoveTileHook();
+  const gameLevel = useGameLevels();
+  const setMatrix = useSetMatrix();
+  const dispatch = useAppDispatch();
 
   // initiates move
   const manageMove = (x: any, y: any) => {
     moveTile(x, y);
+    if (isCompleted(gameLevel.solution.level_1)) dispatch(setCompleted(true));
   };
 
   useHotkeys([
@@ -56,7 +64,6 @@ function Tiles() {
 
   const Tile = ({ x, y, value }: { x: number; y: number; value: number }): JSX.Element => {
     const dark = colorScheme == "dark";
-    const gameLevel = useGameLevels();
     const ans_value = gameLevel.solution.level_1[x][y];
 
     const handleMove = () => {
@@ -74,8 +81,22 @@ function Tiles() {
     );
   };
 
+  const handleRestartGame = () => {
+    dispatch(resetGame());
+    setMatrix(gameLevel.question.level_1);
+    dispatch(setCompleted(false));
+  };
   return (
     <Box mt={30} className="MainTileContainer">
+      {completed && (
+        <Box className="result" bg={"dark"}>
+          <Text fz={"30px"}>Great job, You nailed it</Text>
+          <Text>Moves : {moves}</Text>
+          <Button leftIcon={<IconRotateClockwise size={"20px"} />} onClick={() => handleRestartGame()}>
+            Replay
+          </Button>
+        </Box>
+      )}
       <div className="statusDisplay">{status ? status : ":)"}</div>
       <Box className="TileContainer" sx={{ display: "grid", gridTemplateColumns: gridTemplatesStylePattern, gridTemplateRows: gridTemplatesStylePattern }}>
         {values.map((value, index) => {

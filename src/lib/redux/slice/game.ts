@@ -6,6 +6,7 @@ const initialState = {
   moves: 0,
   tileImage: "1",
   currentLevel: "1",
+  completed: false,
 };
 
 const gameSlice = createSlice({
@@ -25,6 +26,9 @@ const gameSlice = createSlice({
     setLevel: (state, action) => {
       state.currentLevel = action.payload;
     },
+    setCompleted: (state, action) => {
+      state.completed = action.payload;
+    },
     resetGame: (state) => {
       state.matrix = [[]];
       state.moves = 0;
@@ -32,5 +36,5 @@ const gameSlice = createSlice({
   },
 });
 
-export const { setMatrix, setMatrixAsMove, resetGame, setTileImage } = gameSlice.actions;
+export const { setMatrix, setMatrixAsMove, resetGame, setTileImage, setCompleted } = gameSlice.actions;
 export default gameSlice.reducer;

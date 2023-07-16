@@ -164,9 +164,19 @@ const useMoveTileHook = (source_matrix?: number[][]) => {
     }
   };
 
+  const isCompleted = (ans_matrix: number[][]): boolean => {
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        if (matrix[i][j] !== ans_matrix[i][j]) return false;
+      }
+    }
+    return true;
+  };
+
   return {
     moveTile,
     canMoveTile,
+    isCompleted,
     getCoordinatesOfNullTile,
     freeMoveLeft: freeMoveDown,
     freeMoveRight: freeMoveUp,

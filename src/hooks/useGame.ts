@@ -7,12 +7,14 @@ const useGame = () => {
   const moves = useAppSelector((state) => state.game.moves);
   const started = useAppSelector((state) => state.game.started);
   const tileImage = useAppSelector((state) => state.game.tileImage);
+  const completed = useAppSelector((state) => state.game.completed);
   const setImageTitle = (id: string) => dispatch(setTileImage(id));
   return {
     matrix,
     moves,
     started,
     tileImage,
+    completed,
     setTileImage: setImageTitle,
   };
 };
