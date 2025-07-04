@@ -1,7 +1,7 @@
-import { useAppSelector } from "../lib/redux/hooks";
+import { useGameStore } from '../lib/store/gameStore';
 
 const useMatrix = () => {
-  const matrix: number[][] = useAppSelector((state) => state.game.matrix);
+  const matrix: number[][] = useGameStore((state) => state.matrix);
   return matrix;
 };
 

@@ -1,4 +1,4 @@
-import "./Tile.scss";
+import "./Tile.css";
 import useMoveTileHook from "../../hooks/useMoveTile";
 import useGame from "../../hooks/useGame";
 import { useHotkeys } from "@mantine/hooks";
@@ -8,20 +8,19 @@ import { motion } from "framer-motion";
 import useGameLevels from "../../hooks/useGameLevels";
 import { IconRotateClockwise } from "@tabler/icons-react";
 import useSetMatrix from "../../hooks/useSetMatrix";
-import { resetGame, setCompleted } from "../../lib/redux/slice/game";
-import { useAppDispatch } from "../../lib/redux/hooks";
+import { useGameStore } from "../../lib/store/gameStore";
 
 function Tiles() {
-  const { matrix, moves, tileImage, setTileImage, completed } = useGame();
+  const { matrix, moves, tileImage, completed } = useGame();
   const { moveTile, status, freeMoveDown, freeMoveLeft, freeMoveRight, freeMoveUp, isCompleted } = useMoveTileHook();
   const gameLevel = useGameLevels();
   const setMatrix = useSetMatrix();
-  const dispatch = useAppDispatch();
+  const setCompleted = useGameStore((state) => state.setCompleted);
+  const resetGame = useGameStore((state) => state.resetGame);
 
-  // initiates move
-  const manageMove = (x: any, y: any) => {
+  const manageMove = (x: number, y: number) => {
     moveTile(x, y);
-    if (isCompleted(gameLevel.solution.level_1)) dispatch(setCompleted(true));
+    if (isCompleted(gameLevel.solution.level_1)) setCompleted(true);
   };
 
   useHotkeys([
@@ -76,16 +75,21 @@ function Tiles() {
         key={value}
         onClick={handleMove}
       >
-        {["a", "b"].includes(tileImage) ? <>{value === -1 ? "" : <img src={`/tile_images/${tileImage}/${value}.jpg`} />}</> : <>{value == -1 ? "" : value}</>}
+        {["a", "b"].includes(tileImage) ? (
+          <>{value === -1 ? "" : <img src={`/tile_images/${tileImage}/${value}.jpg`} />}</>
+        ) : (
+          <>{value == -1 ? "" : value}</>
+        )}
       </motion.div>
     );
   };
 
   const handleRestartGame = () => {
-    dispatch(resetGame());
+    resetGame();
     setMatrix(gameLevel.question.level_1);
-    dispatch(setCompleted(false));
+    setCompleted(false);
   };
+
   return (
     <Box mt={30} className="MainTileContainer">
       {completed && (
@@ -98,7 +102,10 @@ function Tiles() {
         </Box>
       )}
       <div className="statusDisplay">{status ? status : ":)"}</div>
-      <Box className="TileContainer" sx={{ display: "grid", gridTemplateColumns: gridTemplatesStylePattern, gridTemplateRows: gridTemplatesStylePattern }}>
+      <Box
+        className="TileContainer"
+        sx={{ display: "grid", gridTemplateColumns: gridTemplatesStylePattern, gridTemplateRows: gridTemplatesStylePattern }}
+      >
         {values.map((value, index) => {
           const y = index % matrix.length;
           const x = ~~(index / matrix.length);
@@ -109,11 +116,30 @@ function Tiles() {
         {moves} Moves
       </Text>
       <Flex gap={10} mt={20}>
-        <Card withBorder w={70} sx={{ display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }} onClick={() => setTileImage("1")}>
+        <Card
+          withBorder
+          w={70}
+          sx={{ display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+          onClick={() => useGameStore.getState().setTileImage("1")}
+        >
           123
         </Card>
-        <Image onClick={() => setTileImage("a")} sx={{ cursor: "pointer" }} radius={5} width={70} height={70} src={"/tile_images/a/1.jpg"} />
-        <Image onClick={() => setTileImage("b")} sx={{ cursor: "pointer" }} radius={5} width={70} height={70} src={"/tile_images/b/1.jpg"} />
+        <Image
+          onClick={() => useGameStore.getState().setTileImage("a")}
+          sx={{ cursor: "pointer" }}
+          radius={5}
+          width={70}
+          height={70}
+          src={"/tile_images/a/1.jpg"}
+        />
+        <Image
+          onClick={() => useGameStore.getState().setTileImage("b")}
+          sx={{ cursor: "pointer" }}
+          radius={5}
+          width={70}
+          height={70}
+          src={"/tile_images/b/1.jpg"}
+        />
       </Flex>
     </Box>
   );

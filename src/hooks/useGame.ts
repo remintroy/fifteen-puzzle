@@ -1,21 +1,20 @@
-import { useAppDispatch, useAppSelector } from "../lib/redux/hooks";
-import { setTileImage } from "../lib/redux/slice/game";
+import { useGameStore } from '../lib/store/gameStore';
 
 const useGame = () => {
-  const dispatch = useAppDispatch();
-  const matrix = useAppSelector((state) => state.game.matrix);
-  const moves = useAppSelector((state) => state.game.moves);
-  const started = useAppSelector((state) => state.game.started);
-  const tileImage = useAppSelector((state) => state.game.tileImage);
-  const completed = useAppSelector((state) => state.game.completed);
-  const setImageTitle = (id: string) => dispatch(setTileImage(id));
+  const matrix = useGameStore((state) => state.matrix);
+  const moves = useGameStore((state) => state.moves);
+  const started = useGameStore((state) => state.started);
+  const tileImage = useGameStore((state) => state.tileImage);
+  const completed = useGameStore((state) => state.completed);
+  const setTileImage = useGameStore((state) => state.setTileImage);
+
   return {
     matrix,
     moves,
     started,
     tileImage,
-    completed,
-    setTileImage: setImageTitle,
+    setTileImage,
+    completed
   };
 };
 

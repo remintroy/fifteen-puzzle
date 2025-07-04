@@ -1,0 +1,77 @@
+.MainTileContainer {
+  width: 100%;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.MainTileContainer .statusDisplay {
+  text-align: center;
+  padding: 25px;
+  box-sizing: border-box;
+  width: 400px;
+  border-radius: 5px;
+}
+
+.MainTileContainer .TileContainer {
+  width: 90%;
+  max-width: 400px;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0);
+  gap: 3px;
+}
+
+.MainTileContainer .TileContainer div.Done {
+  background-color: rgb(48, 48, 48);
+}
+
+.MainTileContainer .TileContainer div.light {
+  background-color: rgb(200, 200, 200);
+}
+
+.MainTileContainer .TileContainer div.light.Done {
+  background-color: rgb(224, 224, 224);
+}
+
+.MainTileContainer .TileContainer div.Empty {
+  background-color: transparent;
+}
+
+.MainTileContainer .TileContainer div.invalid-move {
+  background-color: rgba(255, 142, 142, 0.369);
+}
+
+.MainTileContainer .TileContainer div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  background-color: rgb(85, 85, 85);
+  font-weight: bold;
+  font-size: larger;
+  user-select: none;
+  border-radius: 3px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.MainTileContainer .TileContainer div img {
+  width: 100%;
+  height: 100%;
+}
+
+.MainTileContainer .result {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}

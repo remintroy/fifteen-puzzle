@@ -1,15 +1,15 @@
-import { useAppDispatch } from "../lib/redux/hooks";
-import { settingsPermissions, settingsSetPermissions } from "../lib/redux/slice/settings";
+import { useSettingsStore } from '../lib/store/settingsStore';
 
 const useSetPermissions = () => {
-  const dispatch = useAppDispatch();
-  const setPermissions = (permissionsObj: settingsPermissions) => {
-    Object.keys(permissionsObj).forEach((key: any) => {
-      const value = (permissionsObj as unknown as Array<any>)[key];
-      dispatch(settingsSetPermissions({ key, value }));
+  const setPermissions = useSettingsStore((state) => state.setPermissions);
+  
+  const updatePermissions = (permissions: { allowMoveAudio?: boolean; allowMoveVibrate?: boolean }) => {
+    Object.entries(permissions).forEach(([key, value]) => {
+      setPermissions(key as 'allowMoveAudio' | 'allowMoveVibrate', value as boolean);
     });
   };
-  return setPermissions;
+
+  return updatePermissions;
 };
 
 export default useSetPermissions;
