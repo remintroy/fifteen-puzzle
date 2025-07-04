@@ -1,26 +1,21 @@
-const useGameLevels = () => {
-  const lv_1 = {
-    question: [
-      [5, 8, 1, 3],
-      [-1, 9, 2, 4],
-      [13, 7, 6, 11],
-      [14, 15, 10, 12],
-      // [1, 2, 3, 4],
-      // [5, 6, 7, 8],
-      // [9, 10, 11, 12],
-      // [13, 14, -1, 15],
-    ],
-    solution: [
-      [1, 2, 3, 4],
-      [5, 6, 7, 8],
-      [9, 10, 11, 12],
-      [13, 14, 15, -1],
-    ],
-  };
+import { useLevelStore } from '../lib/store/levelStore';
 
+const useGameLevels = () => {
+  const currentLevel = useLevelStore(state => state.currentLevel);
+  const getCurrentLevel = useLevelStore(state => state.getCurrentLevel);
+  const setCurrentLevel = useLevelStore(state => state.setCurrentLevel);
+  const generateLevel = useLevelStore(state => state.generateLevel);
+  const levels = useLevelStore(state => state.levels);
+  
+  const level = getCurrentLevel();
+  
   return {
-    question: { level_1: lv_1.question },
-    solution: { level_1: lv_1.solution },
+    currentLevel,
+    setCurrentLevel,
+    generateLevel,
+    question: { level_1: level.matrix || [] },
+    solution: { level_1: level.solution || [] },
+    gridSize: level.gridSize || 2
   };
 };
 

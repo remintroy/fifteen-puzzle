@@ -2,14 +2,16 @@ import { useGameStore } from '../lib/store/gameStore';
 
 const useSetMatrix = () => {
   const setMatrix = useGameStore((state) => state.setMatrix);
-  const setMatrixAsMove = useGameStore((state) => state.setMatrixAsMove);
+  const setMoves = useGameStore((state) => state.setMoves);
+  const moves = useGameStore((state) => state.moves);
+  const started = useGameStore((state) => state.started);
 
-  const setNewMatrix = (matrix: number[][], options?: { setAsMove: boolean }) => {
-    if (options?.setAsMove) setMatrixAsMove(matrix);
-    else setMatrix(matrix);
+  return (matrix: number[][], isInitialSet: boolean = false) => {
+    setMatrix(matrix);
+    if (!isInitialSet && started) {
+      setMoves(moves + 1);
+    }
   };
-  
-  return setNewMatrix;
 };
 
 export default useSetMatrix;

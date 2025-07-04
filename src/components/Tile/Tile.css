@@ -1,77 +1,79 @@
 .MainTileContainer {
-  width: 100%;
   display: flex;
-  justify-content: baseline;
-  align-items: center;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-.MainTileContainer .statusDisplay {
-  text-align: center;
-  padding: 25px;
-  box-sizing: border-box;
-  width: 400px;
+.TileContainer {
+  width: min(90vw, 500px);
+  height: min(90vw, 500px);
+  gap: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #1a1b1e;
+}
+
+.TileContainer > div {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 3vw, 2rem);
+  font-weight: bold;
+  background-color: #25262b;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.TileContainer > div.light {
+  background-color: #f1f3f5;
+  color: #1a1b1e;
+}
+
+.TileContainer > div.Empty {
+  background-color: transparent !important;
+  cursor: default;
+}
+
+.TileContainer > div.Done {
+  background-color: #40c057;
+  color: white;
+}
+
+.TileContainer > div:not(.Empty):hover {
+  transform: scale(0.95);
+}
+
+.TileContainer > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 5px;
 }
 
-.MainTileContainer .TileContainer {
-  width: 90%;
-  max-width: 400px;
-  height: 400px;
-  background-color: rgba(0, 0, 0, 0);
-  gap: 3px;
-}
-
-.MainTileContainer .TileContainer div.Done {
-  background-color: rgb(48, 48, 48);
-}
-
-.MainTileContainer .TileContainer div.light {
-  background-color: rgb(200, 200, 200);
-}
-
-.MainTileContainer .TileContainer div.light.Done {
-  background-color: rgb(224, 224, 224);
-}
-
-.MainTileContainer .TileContainer div.Empty {
-  background-color: transparent;
-}
-
-.MainTileContainer .TileContainer div.invalid-move {
-  background-color: rgba(255, 142, 142, 0.369);
-}
-
-.MainTileContainer .TileContainer div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: default;
-  background-color: rgb(85, 85, 85);
-  font-weight: bold;
-  font-size: larger;
-  user-select: none;
-  border-radius: 3px;
-  overflow: hidden;
-  transition: all 0.3s;
-}
-
-.MainTileContainer .TileContainer div img {
-  width: 100%;
-  height: 100%;
-}
-
-.MainTileContainer .result {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+.result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10;
+  padding: 20px;
+  border-radius: 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 20px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(26, 27, 30, 0.9);
+}
+
+.statusDisplay {
+  height: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
 }
