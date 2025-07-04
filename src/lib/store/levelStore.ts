@@ -35,8 +35,10 @@ const shuffleMatrix = (solution: number[][]): number[][] => {
   const matrix = JSON.parse(JSON.stringify(solution));
   let emptyPos = { x: size - 1, y: size - 1 };
   
-  // Perform 100 * size random valid moves
-  for (let i = 0; i < 100 * size; i++) {
+  // Perform more moves for larger grids to ensure proper shuffling
+  const moveCount = Math.max(200, 100 * size * size);
+  
+  for (let i = 0; i < moveCount; i++) {
     const possibleMoves = [];
     
     // Check all possible moves
@@ -45,7 +47,7 @@ const shuffleMatrix = (solution: number[][]): number[][] => {
     if (emptyPos.y > 0) possibleMoves.push({ x: emptyPos.x, y: emptyPos.y - 1 }); // left
     if (emptyPos.y < size - 1) possibleMoves.push({ x: emptyPos.x, y: emptyPos.y + 1 }); // right
     
-    // Select random move
+    // Avoid moving back to the previous position
     const move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
     
     // Perform move
@@ -58,7 +60,7 @@ const shuffleMatrix = (solution: number[][]): number[][] => {
 };
 
 const generateInitialLevels = (): Level[] => {
-  const gridSizes = [2, 2, 4, 4, 8];
+  const gridSizes = [2, 3, 3, 4, 4];
   return gridSizes.map(size => {
     const solution = generateSolution(size);
     const matrix = shuffleMatrix(solution);

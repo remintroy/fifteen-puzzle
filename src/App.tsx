@@ -19,7 +19,7 @@ function App() {
   const levels = useGameLevels();
 
   useEffect(() => {
-    setMatrix(levels.question.level_1);
+    setMatrix(levels.question);
   }, []);
 
   return (

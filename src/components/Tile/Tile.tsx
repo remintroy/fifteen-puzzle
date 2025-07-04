@@ -2,7 +2,7 @@ import "./Tile.css";
 import useMoveTileHook from "../../hooks/useMoveTile";
 import useGame from "../../hooks/useGame";
 import { useHotkeys } from "@mantine/hooks";
-import { Box, Button, Card, Flex, Image, Text, useMantineTheme } from "@mantine/core";
+import { Box, Button, Flex, Text, useMantineTheme } from "@mantine/core";
 import { Component, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useGameLevels from "../../hooks/useGameLevels";
@@ -34,7 +34,7 @@ class ErrorBoundary extends Component<{ children: React.ReactNode }, { hasError:
 }
 
 function Tiles() {
-  const { matrix, moves, tileImage, completed, started } = useGame();
+  const { matrix, moves, completed, started } = useGame();
   const { moveTile, status, freeMoveDown, freeMoveLeft, freeMoveRight, freeMoveUp, isCompleted } = useMoveTileHook();
   const { currentLevel, setCurrentLevel, solution, question } = useGameLevels();
   const setMatrix = useSetMatrix();
@@ -46,8 +46,8 @@ function Tiles() {
   useEffect(() => {
     const initGame = async () => {
       await initializeLevel();
-      if (question.level_1?.length > 0) {
-        setMatrix(question.level_1, true);
+      if (question?.length > 0) {
+        setMatrix(question, true);
         setStarted(true);
       }
     };
@@ -55,9 +55,9 @@ function Tiles() {
   }, []);
 
   const manageMove = (x: number, y: number) => {
-    if (!started || !matrix.length || !solution.level_1?.length) return;
+    if (!started || !matrix.length || !solution?.length) return;
     moveTile(x, y);
-    if (isCompleted(solution.level_1)) setCompleted(true);
+    if (isCompleted(solution)) setCompleted(true);
   };
 
   useHotkeys([
@@ -79,7 +79,7 @@ function Tiles() {
 
   useEffect(() => {
     if (!matrix.length) return;
-    
+
     setGridTemplatesStylePattern(() => {
       return matrix.map(() => "1fr ").join("");
     });
@@ -95,7 +95,7 @@ function Tiles() {
 
   const Tile = ({ x, y, value }: { x: number; y: number; value: number }): JSX.Element => {
     const dark = colorScheme == "dark";
-    const ans_value = solution.level_1?.[x]?.[y] ?? 0;
+    const ans_value = solution?.[x]?.[y] ?? 0;
 
     const handleMove = () => {
       manageMove(x, y);
@@ -107,11 +107,7 @@ function Tiles() {
         key={value}
         onClick={handleMove}
       >
-        {["a", "b"].includes(tileImage) ? (
-          <>{value === -1 ? "" : <img src={`/tile_images/${tileImage}/${value}.jpg`} />}</>
-        ) : (
-          <>{value == -1 ? "" : value}</>
-        )}
+        {value === -1 ? "" : value}
       </motion.div>
     );
   };
@@ -119,8 +115,8 @@ function Tiles() {
   const handleRestartLevel = async () => {
     resetGame();
     await initializeLevel();
-    if (question.level_1?.length > 0) {
-      setMatrix(question.level_1, true);
+    if (question?.length > 0) {
+      setMatrix(question, true);
       setStarted(true);
     }
     setCompleted(false);
@@ -131,15 +127,15 @@ function Tiles() {
       setCurrentLevel(currentLevel + 1);
       resetGame();
       await initializeLevel();
-      if (question.level_1?.length > 0) {
-        setMatrix(question.level_1, true);
+      if (question?.length > 0) {
+        setMatrix(question, true);
         setStarted(true);
       }
       setCompleted(false);
     }
   };
 
-  if (!matrix.length || !solution.level_1?.length) {
+  if (!matrix.length || !solution?.length) {
     return <Box mt={30} className="MainTileContainer"><Text>Loading...</Text></Box>;
   }
 
@@ -176,32 +172,7 @@ function Tiles() {
       <Text fw={"bold"} mt={20} className="Move Count mt-4">
         Level {currentLevel} - {moves} Moves
       </Text>
-      <Flex gap={10} mt={20}>
-        <Card
-          withBorder
-          w={70}
-          sx={{ display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
-          onClick={() => useGameStore.getState().setTileImage("1")}
-        >
-          123
-        </Card>
-        <Image
-          onClick={() => useGameStore.getState().setTileImage("a")}
-          sx={{ cursor: "pointer" }}
-          radius={5}
-          width={70}
-          height={70}
-          src={"/tile_images/a/1.jpg"}
-        />
-        <Image
-          onClick={() => useGameStore.getState().setTileImage("b")}
-          sx={{ cursor: "pointer" }}
-          radius={5}
-          width={70}
-          height={70}
-          src={"/tile_images/b/1.jpg"}
-        />
-      </Flex>
+
     </Box>
   );
 }
